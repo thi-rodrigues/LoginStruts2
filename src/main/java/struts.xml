@@ -8,18 +8,18 @@
 		<action name="saveUsuario" method="saveUsuario" class="br.com.soc.action.UsuarioAction">
 			<result name="success" type="redirect">login</result>
 		</action>
-		<action name="login" method="list" class="br.com.soc.action.UsuarioAction">
+		
+		<action name="login" method="welcome" class="br.com.soc.action.UsuarioAction">
 			<result name="success">/login/register.jsp</result>
 		</action>
-		<action name="findLogins" method="buscarUsuarios" class="br.com.soc.action.UsuarioAction">
-			<result name="success">/login/register.jsp</result>
+		
+		<action name="logarUsuario" method="buscarUsuarios" class="br.com.soc.action.UsuarioAction">
+			<result name="success">/login/usuarioLogado.jsp</result>
+			<result name="error">/login/register.jsp</result>
 		</action>
-		<action name="editLogin" method="edit" class="br.com.soc.action.UsuarioAction">
-			<result name="success">/login/register.jsp</result>
+		
+		<action name="usuarioLogado" method="usuariosSistema" class="br.com.soc.action.UsuarioLogadoAction">
+			<result name="success">/login/usuarioLogado.jsp</result>
 		</action>
-		<action name="deleteLogin" method="delete" class="br.com.soc.action.UsuarioAction">
-			<result name="success" type="redirect">login</result>
-		</action>
-
 	</package>
 </struts>

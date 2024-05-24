@@ -13,7 +13,7 @@ import br.com.soc.service.impl.UsuarioServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario> {
+public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Usuario> {
 
 	private static final long serialVersionUID = -6659925652584240539L;
 
@@ -27,28 +27,13 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario>
 	public Usuario getModel() {
 		return usuario;
 	}
-	
-	public String welcome() throws SQLException, Exception {
-		System.out.println("Bem Vindo!");
-		return SUCCESS;
-	}
 
-	public String saveUsuario() throws SQLException, Exception {
+	public String usuariosSistema() throws SQLException, Exception {
 		System.out.println(usuario);
-		usuarioService.saveUsuario(usuario);
+//		usuarioService.saveUsuario(usuario);
 		return SUCCESS;
 	}
 
-	public String buscarUsuarios() throws SQLException, Exception {
-		Usuario usuarioLogado = usuarioService.buscarUsuario(usuario);
-		System.out.println(usuarioLogado);
-		return usuarioLogado.getNome() != null ? SUCCESS : ERROR;
-	}
-	
-//	public String error() throws SQLException, Exception {
-//		System.out.println("error");
-//		return SUCCESS;
-//	}
 
 
 }

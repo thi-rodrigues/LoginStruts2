@@ -13,11 +13,9 @@
         </head>
 
         <body>
-            <br>
             <hr>
-            <br>
             <s:form action="saveUsuario">
-            	<h4>Novo Login</h4>
+            	<h4>Cadastrar Usuário</h4>
                 <s:push value="usuario">
                     <s:textfield name="nome" label="Login" />
                     <s:password name="senha" label="Senha" />
@@ -25,7 +23,17 @@
                     <s:submit value="Gravar"/>
                 </s:push>
             </s:form>
-            
+            <br>
+            <hr>
+            <br>
+            <s:form action="logarUsuario">
+            	<h4>Login</h4>
+                <s:push value="usuario">
+                    <s:textfield name="nome" label="Login" />
+                    <s:password name="senha" label="Senha" />
+                    <s:submit value="Login"/>
+                </s:push>
+            </s:form>
         </body>
 
         </html>
