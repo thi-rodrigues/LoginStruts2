@@ -8,19 +8,58 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Usuário Logado</title>
 		<s:head />
-		<style type="text/css">
-		@import url(style.css);
+		<style type="text/css"> @import url(style.css);
+			.txDecorationNone {
+				text-decoration: none;
+			}
 		</style>
 	</head>
 
 	<body>
 		<hr>
-		<s:form action="usuarioLogado">
+			<h1>Bem Vindo Sr. <s:text name="%{nome}" /></h1>
+		<hr>
 			<h4>Usuários do Sistema</h4>
-			<s:push value="usuario">
-				<h1>Bem Vindo Sr.</h1><b name="nome" ></b>
-				<s:textfield name="nome" label="Login" />
-			</s:push>
-		</s:form>
+			
+			<s:if test="usuariosList.size() > 0">
+				<div>
+					<table class="userTable" cellpadding="5px">
+						<thead>
+							<tr class="even">
+	                            <th>Usuário</th>
+	                            <th>Tempo</th>
+	                            <th>Ação</th>
+	                        </tr>
+						</thead>
+						<s:iterator value="usuariosList">
+							<tr>
+								<td><s:property value="nome"/></td>
+								<td><s:property value="tempoInativividade"/></td>
+								<td>
+									<a href="updatedetails.action?submitType=updatedata&email=<s:property value="email"/>" class="txDecorationNone">
+										<button> Update	</button>
+									</a> 
+									<a href="deleterecord.action?uemail=<s:property value="email"/>" class="txDecorationNone">
+										<button> Delete </button>
+									</a>
+								</td>
+							</tr>
+						</s:iterator>
+					</table>
+				</div>
+			</s:if>
+			
+			<hr>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+				<a href="autenticacao.action?nome=<s:property value="nome"/>" class="txDecorationNone button-acao">
+					<button> Validar </button>
+				</a> 
+			
+		<i class="userLogado">Usuário logado: </i><s:text name="%{nome}" />
 	</body>
 </html>

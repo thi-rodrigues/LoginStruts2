@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -34,9 +36,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 			StringBuilder sql = new StringBuilder("INSERT INTO USUARIO VALUES ('");
 			sql.append(usuario.getNome() + "', ");
 			sql.append("MD5('" + usuario.getSenha() + "'), ");
-			sql.append(usuario.getTempoativividade() + ")");
+			sql.append(usuario.getTempoInativividade() + ")");
 
 			PreparedStatement ps = getConnection().prepareStatement(sql.toString());
+			System.out.println("method saveUsuario: " + sql.toString());
 			ps.executeUpdate();
 		} catch (Exception e) {
 			transaction.rollback();
@@ -58,19 +61,94 @@ public class UsuarioServiceImpl implements UsuarioService {
 			sql.append("AND DS_SENHA = MD5('" + usuario.getSenha() + "') ");
 
 			PreparedStatement ps = getConnection().prepareStatement(sql.toString());
+			System.out.println("method buscarUsuario: " + sql.toString());
 			ps.setString(1, usuario.getNome());
 			ResultSet rs = ps.executeQuery();
 
 			if (rs != null) {
 				while (rs.next()) {
 					usuarioResult.setNome(rs.getString("NM_LOGIN"));
-					usuarioResult.setTempoativividade(rs.getLong("QT_TEMPO_INATIVIDADE"));
+					usuarioResult.setTempoInativividade(rs.getLong("QT_TEMPO_INATIVIDADE"));
+					// SETAR O HORARIO DA AUTENTICACAO
+					registrarUsuarioAltenticado(usuarioResult.getNome(), usuarioResult.getTempoInativividade());
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return usuarioResult;
+	}
+
+	private void registrarUsuarioAltenticado(String nome, Long tempoInativividade) throws SQLException, Exception {
+		getConnection().setAutoCommit(false);
+		try {
+			
+			String sql = "UPDATE USUARIO SET AUTENTICADO = CURRENT_TIMESTAMP + INTERVAL ? MINUTE"
+					+ "		WHERE NM_LOGIN = ?";
+
+			PreparedStatement ps = getConnection().prepareStatement(sql);
+			ps.setLong(1, tempoInativividade);
+			ps.setString(2, nome);
+			System.out.println("method registrarUsuarioAltenticado: " + sql);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			if (getConnection() != null) {
+				getConnection().close();
+			}
+		}
+	}
+
+	@Override
+	public boolean usuarioAutenticado(Usuario usuario) throws SQLException, Exception {
+		getConnection().setAutoCommit(false);
+		boolean usuarioAutenticado = false;
+		try {
+			StringBuilder sql = new StringBuilder("SELECT EXISTS( "
+					+ "	SELECT * FROM USUARIO WHERE NM_LOGIN =? AND AUTENTICADO > CURRENT_TIMESTAMP() "
+					+ ") IS_AUTENTICADO ;");
+
+			PreparedStatement ps = getConnection().prepareStatement(sql.toString());
+			System.out.println("method usuarioAutenticado: " + sql);
+			ps.setString(1, usuario.getNome());
+			ResultSet rs = ps.executeQuery();
+
+			if (rs != null) {
+				while (rs.next()) {
+					usuarioAutenticado = rs.getBoolean("IS_AUTENTICADO");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usuarioAutenticado;
+	}
+
+	@Override
+	public List<Usuario> buscarUsuarios() throws SQLException, Exception {
+		getConnection().setAutoCommit(false);
+		List<Usuario> usuarios = new LinkedList<>();
+		Usuario usuario = new Usuario();
+		
+		try {
+			StringBuilder sql = new StringBuilder("SELECT NM_LOGIN, QT_TEMPO_INATIVIDADE FROM USUARIO");
+
+			PreparedStatement ps = getConnection().prepareStatement(sql.toString());
+			ResultSet rs = ps.executeQuery();
+
+			if (rs != null) {
+				while (rs.next()) {
+					usuario.setNome(rs.getString("NM_LOGIN"));
+					usuario.setTempoInativividade(rs.getLong("QT_TEMPO_INATIVIDADE"));
+					usuarios.add(usuario);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usuarios;
 	}
 
 }

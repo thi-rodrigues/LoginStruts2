@@ -1,8 +1,8 @@
 package br.com.soc.action;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -13,6 +13,7 @@ import br.com.soc.service.impl.UsuarioServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 
+@Result(type="redirectAction",name="usuarioLogado")
 public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario> {
 
 	private static final long serialVersionUID = -6659925652584240539L;
@@ -25,30 +26,24 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario>
 
 	@Override
 	public Usuario getModel() {
+		System.out.println("getModel()");
 		return usuario;
 	}
 	
 	public String welcome() throws SQLException, Exception {
-		System.out.println("Bem Vindo!");
+		System.out.println("welcome()");
 		return SUCCESS;
 	}
 
 	public String saveUsuario() throws SQLException, Exception {
-		System.out.println(usuario);
 		usuarioService.saveUsuario(usuario);
 		return SUCCESS;
 	}
 
-	public String buscarUsuarios() throws SQLException, Exception {
-		Usuario usuarioLogado = usuarioService.buscarUsuario(usuario);
-		System.out.println(usuarioLogado);
-		return usuarioLogado.getNome() != null ? SUCCESS : ERROR;
-	}
-	
-//	public String error() throws SQLException, Exception {
-//		System.out.println("error");
-//		return SUCCESS;
+//	public String logar() throws SQLException, Exception {
+//		System.out.println("logar()");
+//		usuario = usuarioService.buscarUsuario(usuario);
+//		return usuario.getNome() != null ? "usuarioLogado" : ERROR;
 //	}
-
-
+	
 }

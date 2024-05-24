@@ -1,7 +1,6 @@
 package br.com.soc.action;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -21,19 +20,38 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 	@Setter
 	private Usuario usuario = new Usuario();
 	
+	@Getter
+	@Setter
+	private List<Usuario> usuariosList;
+	
 	private UsuarioService usuarioService = new UsuarioServiceImpl();
 
 	@Override
 	public Usuario getModel() {
+		System.out.println("getModelUsuario()");
 		return usuario;
 	}
-
+	
+	public String logar() throws SQLException, Exception {
+		System.out.println("logar()");
+		usuario = usuarioService.buscarUsuario(usuario);
+		
+		if (usuario.getNome() != null)
+			usuariosSistema();
+		
+		return usuario.getNome() != null ? SUCCESS : ERROR;
+	}
+	
 	public String usuariosSistema() throws SQLException, Exception {
-		System.out.println(usuario);
-//		usuarioService.saveUsuario(usuario);
+		System.out.println("usuariosSistema()");
+		usuariosList = usuarioService.buscarUsuarios();
 		return SUCCESS;
 	}
-
-
+	
+	// VERIFICA SE O USUÁRIO ESTÁ COM TEMPO VÁLIDO
+	public String usuarioAutenticado() throws SQLException, Exception {
+		boolean usuarioAutenticado = usuarioService.usuarioAutenticado(usuario);
+		return usuarioAutenticado ? SUCCESS : ERROR;
+	}
 
 }

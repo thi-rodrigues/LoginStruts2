@@ -27,5 +27,5 @@ public class Usuario {
 	private String senha;
 	
 	@Column(name="QT_TEMPO_INATIVIDADE")
-	private Long tempoativividade;
+	private Long tempoInativividade;
 }
