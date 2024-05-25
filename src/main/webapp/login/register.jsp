@@ -18,7 +18,7 @@
                 <s:push value="usuario">
                     <s:textfield name="nome" label="Login" />
                     <s:password name="senha" label="Senha" />
-                    <s:textfield name="tempoInativividade" label="Tempo de Inatividade" size="1"  maxLength="2"/>
+                    <s:textfield type="number" name="tempoInativividade" label="Tempo de Inatividade" min="1" max="90"/>
                     <s:submit value="Gravar"/>
                 </s:push>
             </s:form>

@@ -1,5 +1,7 @@
 package br.com.soc.domain;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +22,8 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
 	@Column(name="NM_LOGIN")	
 	private String nome;
 	
@@ -28,4 +32,7 @@ public class Usuario {
 	
 	@Column(name="QT_TEMPO_INATIVIDADE")
 	private Long tempoInativividade;
+	
+	@Column(name="AUTENTICADO")
+	private LocalDateTime autenticado;
 }

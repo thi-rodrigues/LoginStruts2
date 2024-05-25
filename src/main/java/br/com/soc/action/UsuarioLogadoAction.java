@@ -28,23 +28,30 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 
 	@Override
 	public Usuario getModel() {
-		System.out.println("getModelUsuario()");
 		return usuario;
 	}
 	
 	public String logar() throws SQLException, Exception {
-		System.out.println("logar()");
 		usuario = usuarioService.buscarUsuario(usuario);
 		
 		if (usuario.getNome() != null)
-			usuariosSistema();
+			usuariosList = usuarioService.buscarUsuarios();
 		
 		return usuario.getNome() != null ? SUCCESS : ERROR;
 	}
 	
-	public String usuariosSistema() throws SQLException, Exception {
-		System.out.println("usuariosSistema()");
-		usuariosList = usuarioService.buscarUsuarios();
+	public String buscarUsuarioPorId() throws SQLException, Exception {
+		usuario = usuarioService.buscarUsuarioPorId(usuario.getId());
+		return SUCCESS;
+	}
+	
+	public String atualizarUsuario() throws SQLException, Exception {
+		usuarioService.atualizarUsuario(usuario);
+		return SUCCESS;
+	}
+	
+	public String deletarUsuario() throws SQLException, Exception {
+		usuarioService.deletarUsuario(usuario.getId());
 		return SUCCESS;
 	}
 	

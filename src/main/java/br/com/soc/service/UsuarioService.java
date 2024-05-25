@@ -14,5 +14,11 @@ public interface UsuarioService {
 	public boolean usuarioAutenticado(Usuario usuario) throws SQLException, Exception;
 	
 	List<Usuario> buscarUsuarios() throws SQLException, Exception;
+
+	public void atualizarUsuario(Usuario usuario) throws SQLException, Exception;
+
+	public Usuario buscarUsuarioPorId(Long id) throws SQLException, Exception;
+
+	void deletarUsuario(Long id) throws SQLException, Exception;
 	
 }

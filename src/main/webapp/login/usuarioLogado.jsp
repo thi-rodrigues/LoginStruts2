@@ -34,12 +34,14 @@
 						<s:iterator value="usuariosList">
 							<tr>
 								<td><s:property value="nome"/></td>
-								<td><s:property value="tempoInativividade"/></td>
+								<td><s:property value="tempoInativividade"/> minutos</td>
 								<td>
-									<a href="updatedetails.action?submitType=updatedata&email=<s:property value="email"/>" class="txDecorationNone">
+									<a href="buscarUsuario.action?id=<s:property value="id"/>"
+										class="txDecorationNone">
 										<button> Update	</button>
 									</a> 
-									<a href="deleterecord.action?uemail=<s:property value="email"/>" class="txDecorationNone">
+									<a href="deleteUser.action?id=<s:property value="id"/>"
+										class="txDecorationNone">
 										<button> Delete </button>
 									</a>
 								</td>
@@ -48,7 +50,6 @@
 					</table>
 				</div>
 			</s:if>
-			
 			<hr>
 			<br>
 			<br>

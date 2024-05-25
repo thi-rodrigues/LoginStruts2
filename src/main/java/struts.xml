@@ -26,5 +26,18 @@
 			<result name="success">/login/usuarioLogado.jsp</result>
 			<result name="error">/login/register.jsp</result>
 		</action>
+		
+		<action name="buscarUsuario" method="buscarUsuarioPorId" class="br.com.soc.action.UsuarioLogadoAction">
+			<result name="success">/login/update.jsp</result>
+		</action>
+		
+		<action name="updateUser" method="atualizarUsuario" class="br.com.soc.action.UsuarioLogadoAction">
+			<result name="success">/login/usuarioLogado.jsp</result>
+		</action>
+		
+		<action name="deleteUser" method="deletarUsuario" class="br.com.soc.action.UsuarioLogadoAction">
+			<result name="success">/login/usuarioLogado.jsp</result>
+		</action>
+		
 	</package>
 </struts>

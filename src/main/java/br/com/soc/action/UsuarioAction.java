@@ -36,14 +36,9 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario>
 	}
 
 	public String saveUsuario() throws SQLException, Exception {
-		usuarioService.saveUsuario(usuario);
+		if (usuario.getNome() != null)
+			usuarioService.saveUsuario(usuario);
 		return SUCCESS;
 	}
 
-//	public String logar() throws SQLException, Exception {
-//		System.out.println("logar()");
-//		usuario = usuarioService.buscarUsuario(usuario);
-//		return usuario.getNome() != null ? "usuarioLogado" : ERROR;
-//	}
-	
 }
