@@ -22,26 +22,56 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 	
 	@Getter
 	@Setter
+	private Usuario usuarioLogado = new Usuario();
+	
+	@Getter
+	@Setter
+	private Long idUsuarioLogado;
+	
+	@Getter
+	@Setter
 	private List<Usuario> usuariosList;
 	
 	private UsuarioService usuarioService = new UsuarioServiceImpl();
 
 	@Override
 	public Usuario getModel() {
+		System.out.println("usuarioLogado:" + usuarioLogado);
+		System.out.println("usuario:" + usuario);
 		return usuario;
 	}
 	
+	public void validate(){
+	    if (usuario.getNome().length() == 0) {
+	        addFieldError("usuario.nome", "First name is required.");
+	    }
+
+	    if (usuario.getNome().length() == 0) {
+	        addFieldError("usuario.nome", "Email is required.");
+	    }
+
+	    if (usuario.getTempoInativividade() > 90) {
+	        addFieldError("usuario.tempoInativividade", "Age is required and must be 18 or older");
+	    }
+	}
+	
 	public String logar() throws SQLException, Exception {
-		usuario = usuarioService.buscarUsuario(usuario);
+		usuarioLogado = usuarioService.buscarUsuario(usuario);
+		System.out.println("usuarioLogado:" + usuarioLogado);
+		System.out.println("usuario:" + usuario);
 		
-		if (usuario.getNome() != null)
+		if (usuarioLogado.getNome() != null) {
 			usuariosList = usuarioService.buscarUsuarios();
-		
-		return usuario.getNome() != null ? SUCCESS : ERROR;
+			return SUCCESS;
+		}
+		return  ERROR;
 	}
 	
 	public String buscarUsuarioPorId() throws SQLException, Exception {
+		System.out.println("usuarioLogado:" + usuarioLogado);
+		System.out.println("usuario:" + usuario);
 		usuario = usuarioService.buscarUsuarioPorId(usuario.getId());
+		usuarioLogado = usuarioService.buscarUsuarioPorId(idUsuarioLogado);
 		return SUCCESS;
 	}
 	
@@ -50,9 +80,8 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 		return SUCCESS;
 	}
 	
-	public String deletarUsuario() throws SQLException, Exception {
+	public void deletarUsuario() throws SQLException, Exception {
 		usuarioService.deletarUsuario(usuario.getId());
-		return SUCCESS;
 	}
 	
 	// VERIFICA SE O USUÁRIO ESTÁ COM TEMPO VÁLIDO

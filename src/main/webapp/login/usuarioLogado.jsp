@@ -17,7 +17,7 @@
 
 	<body>
 		<hr>
-			<h1>Bem Vindo Sr. <s:text name="%{nome}" /></h1>
+			<h1>Bem Vindo Sr. <s:text name="%{usuarioLogado.nome}" /></h1>
 		<hr>
 			<h4>Usuários do Sistema</h4>
 			
@@ -36,7 +36,8 @@
 								<td><s:property value="nome"/></td>
 								<td><s:property value="tempoInativividade"/> minutos</td>
 								<td>
-									<a href="buscarUsuario.action?id=<s:property value="id"/>"
+									<a href="buscarUsuario.action?id=<s:property value="id"/>
+										&idUsuarioLogado=<s:property value="usuarioLogado.id" />"
 										class="txDecorationNone">
 										<button> Update	</button>
 									</a> 
@@ -57,10 +58,10 @@
 			<br>
 			<br>
 			<br>
-				<a href="autenticacao.action?nome=<s:property value="nome"/>" class="txDecorationNone button-acao">
+				<a href="autenticacao.action?nome=<s:property value="usuarioLogado.nome"/>" class="txDecorationNone button-acao">
 					<button> Validar </button>
 				</a> 
 			
-		<i class="userLogado">Usuário logado: </i><s:text name="%{nome}" />
+		<i class="userLogado">Usuário logado: </i><s:text name="%{usuarioLogado.nome}" />
 	</body>
 </html>

@@ -1,5 +1,6 @@
 package br.com.soc.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -18,8 +19,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="USUARIO")
-public class Usuario {
+public class Usuario implements Serializable {
 	
+	private static final long serialVersionUID = 7689739005290852030L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -35,4 +38,5 @@ public class Usuario {
 	
 	@Column(name="AUTENTICADO")
 	private LocalDateTime autenticado;
+	
 }

@@ -6,7 +6,7 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Usuário Logado</title>
+		<title>Update</title>
 		<s:head />
 		<style type="text/css"> @import url(style.css);
 			.txDecorationNone {
@@ -17,21 +17,21 @@
 
 	<body>
 		<hr>
-			<h1>UPDATE <s:text name="%{nome}" /></h1>
+			<h1>UPDATE</h1>
 		<hr>
 			<div>
 				<s:form action="updateUser" method="POST">
 					<s:push value="usuario">
 						<input type="hidden" name="id" value='<s:property value="id"/>'>
 						<b>Login: </b>
-						<input type="text" name="nome" value='<s:property value="nome"/>'>
+						<input type="text" name="nome" value='<s:property value="nome"/>'><br>
 						<b>Tempo: </b>
 						<input type="text" name="tempoInativividade" value='<s:property value="tempoInativividade"/>'>
 						<button type="submit">Update</button>
 					</s:push>
 				</s:form>
 			</div>
-			
-		<i class="userLogado">Usuário logado: </i><s:text name="%{nome}" />
+			<br>
+		<i class="userLogado">Usuário logado: </i><s:text name="%{usuarioLogado.nome}" />
 	</body>
 </html>
