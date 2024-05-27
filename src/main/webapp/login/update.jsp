@@ -28,11 +28,11 @@
 						<b>Tempo: </b>
 						<input type="text" name="tempoInativividade" value='<s:property value="tempoInativividade"/>'>
 						<s:hidden name="idUsuarioLogado" />
-						<button type="submit">Update</button>
+						<!-- <button type="submit">Update</button>  -->
 						<a href="updateUser.action?idUsuarioLogado=<s:property value="usuarioLogado.id" />"
 										class="txDecorationNone">
-										<button> Update2	</button>
-									</a> 
+							<button> Update </button>
+						</a> 
 					</s:push>
 				</s:form>
 			</div>
