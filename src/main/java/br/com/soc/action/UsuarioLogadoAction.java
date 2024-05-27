@@ -3,6 +3,11 @@ package br.com.soc.action;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -36,6 +41,10 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 
 	@Override
 	public Usuario getModel() {
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
+				.get(ServletActionContext.HTTP_REQUEST);
+		if (request.getParameter("idUsuarioLogado") != null && !request.getParameter("idUsuarioLogado").equals(""))
+			idUsuarioLogado = Long.valueOf(request.getParameter("idUsuarioLogado"));
 		return usuario;
 	}
 	
@@ -51,7 +60,17 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 		return SUCCESS;
 	}
 	
+	public String buscarUsuarioLogadoId() throws SQLException, Exception {
+		usuarioLogado = usuarioService.buscarUsuarioPorId(idUsuarioLogado);
+		return SUCCESS;
+	}
+	
 	public String atualizarUsuario() throws SQLException, Exception {
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
+				.get(ServletActionContext.HTTP_REQUEST);
+		if (request.getParameter("idUsuarioLogado") != null && !request.getParameter("idUsuarioLogado").equals(""))
+			idUsuarioLogado = Long.valueOf(request.getParameter("idUsuarioLogado"));
+		
 		usuarioService.atualizarUsuario(usuario);
 		return SUCCESS;
 	}
@@ -68,9 +87,13 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 	}
 	
 	public String usuariosSistema() throws SQLException, Exception {
+		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
+				.get(ServletActionContext.HTTP_REQUEST);
+		if (request.getParameter("idUsuarioLogado") != null && !request.getParameter("idUsuarioLogado").equals(""))
+			idUsuarioLogado = Long.valueOf(request.getParameter("idUsuarioLogado"));
+		
 		usuariosList = usuarioService.buscarUsuarios();
 		return SUCCESS;
 	}
-	
 
 }

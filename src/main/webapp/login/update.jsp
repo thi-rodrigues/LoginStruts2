@@ -27,7 +27,12 @@
 						<input type="text" name="nome" value='<s:property value="nome"/>'><br>
 						<b>Tempo: </b>
 						<input type="text" name="tempoInativividade" value='<s:property value="tempoInativividade"/>'>
+						<s:hidden name="idUsuarioLogado" />
 						<button type="submit">Update</button>
+						<a href="updateUser.action?idUsuarioLogado=<s:property value="usuarioLogado.id" />"
+										class="txDecorationNone">
+										<button> Update2	</button>
+									</a> 
 					</s:push>
 				</s:form>
 			</div>

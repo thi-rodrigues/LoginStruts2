@@ -4,35 +4,49 @@
     <%@taglib prefix="sb" uri="/struts-bootstrap-tags" %>
 	<html>
         <head>
-        <!-- 
-            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-         -->
             <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+            <link href="../style.css" rel="stylesheet" media="screen">
             <title>Cadastrar Login</title>
             <sb:head />
         </head>
 
         <body>
-            <hr>
-            <s:form action="saveUsuario" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
-            	<h4>Cadastrar Usuário</h4>
-                <s:push value="usuario">
-                    <s:textfield name="nome" label="Login" class="col-md-3"/>
-                    <s:password name="senha" label="Senha" class="col-md-3"/>
-                    <s:textfield type="number" name="tempoInativividade" label="Tempo de Inatividade" min="1" max="90"/>
-                    <s:submit value="Gravar"/>
-                </s:push>
-            </s:form>
-            <br>
-            <hr>
-            <br>
-            <s:form action="logarUsuario">
-            	<h4>Login</h4>
-                <s:push value="usuario">
-                    <s:textfield name="nome" label="Login" />
-                    <s:password name="senha" label="Senha" />
-                    <s:submit value="Login"/>
-                </s:push>
-            </s:form>
+        	<script src="https://code.jquery.com/jquery.js"></script>
+    		<script src="js/bootstrap.min.js"></script>
+            
+            <div class="container">
+            	<div class="login">
+					<s:form action="logarUsuario" class="form-signin" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
+		            	<h1>Login</h1>
+		                <s:push value="usuario">
+		                    <s:textfield name="nome" placeholder="Email" class="input-block-level" required="true"/>
+		                    <s:password name="senha" placeholder="Password" class="input-block-level" required="true"/>
+		                    <s:submit value="Login" class="btn-primary-login"/>
+		                </s:push>
+	            	</s:form>
+	            	<!-- 
+	            	<s:form action="saveUsuario" class="form-signin" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
+		            	<s:submit value="Cadastre-se" class="btn-primary-login"/>
+	            	</s:form>
+	            	 -->
+            	</div>
+            	
+            	<div class="create-login">
+            		<s:form action="saveUsuario" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
+		            	<h1>Cadastrar Usuário</h1>
+		                <s:push value="usuario">
+		                    <s:textfield name="nome" label="Login" class="col-md-3" required="true"/>
+		                    <s:password name="senha" label="Senha" class="col-md-3" required="true"/>
+		                    <s:textfield type="number" name="tempoInativividade" label="Tempo de Inatividade" min="1" max="90" required="true"/>
+		                    <s:submit value="Gravar" class="btn btn-primary" />
+		                </s:push>
+		            </s:form>
+            	</div>
+            	<!-- 
+            	<s:if test="newLogin == true">
+            	</s:if>
+            	 -->
+            </div>
         </body>
 	</html>

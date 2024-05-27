@@ -18,6 +18,9 @@
 	<body>
 		<hr>
 			<h1>Bem Vindo Sr. <s:text name="%{usuarioLogado.nome}" /></h1>
+			<script>
+				localStorage.setItem("usuarioLogado", "<s:text name="%{usuarioLogado}" />");
+			</script>
 		<hr>
 			<h4>Usuários do Sistema</h4>
 			
