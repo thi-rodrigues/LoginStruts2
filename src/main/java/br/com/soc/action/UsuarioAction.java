@@ -2,8 +2,6 @@ package br.com.soc.action;
 
 import java.sql.SQLException;
 
-import org.apache.struts2.convention.annotation.Result;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -13,7 +11,6 @@ import br.com.soc.service.impl.UsuarioServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 
-@Result(type="redirectAction",name="usuarioLogado")
 public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario> {
 
 	private static final long serialVersionUID = -6659925652584240539L;
@@ -26,17 +23,15 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario>
 
 	@Override
 	public Usuario getModel() {
-		System.out.println("getModel()");
 		return usuario;
 	}
 	
 	public String welcome() throws SQLException, Exception {
-		System.out.println("welcome()");
 		return SUCCESS;
 	}
 
 	public String saveUsuario() throws SQLException, Exception {
-		if (usuario.getNome() != null)
+		if (usuario.getNome() != null && usuario.getSenha() != null && usuario.getTempoInativividade() != null)
 			usuarioService.saveUsuario(usuario);
 		return SUCCESS;
 	}

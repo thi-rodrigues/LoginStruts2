@@ -32,11 +32,11 @@
 		</action>
 		
 		<action name="updateUser" method="atualizarUsuario" class="br.com.soc.action.UsuarioLogadoAction">
-			<result name="success">/login/usuarioLogado.jsp</result>
+			<result name="success" type="redirect">logarUsuario</result>
 		</action>
 		
 		<action name="deleteUser" method="deletarUsuario" class="br.com.soc.action.UsuarioLogadoAction">
-			<result name="success">/login/usuarioLogado.jsp</result>
+			<result name="success" type="redirect">logarUsuario</result>
 		</action>
 		
 	</package>

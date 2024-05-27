@@ -17,13 +17,11 @@
             <s:form action="saveUsuario" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
             	<h4>Cadastrar Usuário</h4>
                 <s:push value="usuario">
-                    <s:textfield name="nome" label="Login" />
-                    <s:password name="senha" label="Senha" />
+                    <s:textfield name="nome" label="Login" class="col-md-3"/>
+                    <s:password name="senha" label="Senha" class="col-md-3"/>
                     <s:textfield type="number" name="tempoInativividade" label="Tempo de Inatividade" min="1" max="90"/>
                     <s:submit value="Gravar"/>
-				<!-- 
                 </s:push>
-				 -->
             </s:form>
             <br>
             <hr>

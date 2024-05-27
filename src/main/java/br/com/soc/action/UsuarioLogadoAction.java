@@ -36,40 +36,16 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 
 	@Override
 	public Usuario getModel() {
-		System.out.println("usuarioLogado:" + usuarioLogado);
-		System.out.println("usuario:" + usuario);
 		return usuario;
-	}
-	
-	public void validate(){
-	    if (usuario.getNome().length() == 0) {
-	        addFieldError("usuario.nome", "First name is required.");
-	    }
-
-	    if (usuario.getNome().length() == 0) {
-	        addFieldError("usuario.nome", "Email is required.");
-	    }
-
-	    if (usuario.getTempoInativividade() > 90) {
-	        addFieldError("usuario.tempoInativividade", "Age is required and must be 18 or older");
-	    }
 	}
 	
 	public String logar() throws SQLException, Exception {
 		usuarioLogado = usuarioService.buscarUsuario(usuario);
-		System.out.println("usuarioLogado:" + usuarioLogado);
-		System.out.println("usuario:" + usuario);
-		
-		if (usuarioLogado.getNome() != null) {
-			usuariosList = usuarioService.buscarUsuarios();
-			return SUCCESS;
-		}
-		return  ERROR;
+		usuariosList = usuarioService.buscarUsuarios();
+		return SUCCESS;
 	}
 	
 	public String buscarUsuarioPorId() throws SQLException, Exception {
-		System.out.println("usuarioLogado:" + usuarioLogado);
-		System.out.println("usuario:" + usuario);
 		usuario = usuarioService.buscarUsuarioPorId(usuario.getId());
 		usuarioLogado = usuarioService.buscarUsuarioPorId(idUsuarioLogado);
 		return SUCCESS;
@@ -80,8 +56,9 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 		return SUCCESS;
 	}
 	
-	public void deletarUsuario() throws SQLException, Exception {
+	public String deletarUsuario() throws SQLException, Exception {
 		usuarioService.deletarUsuario(usuario.getId());
+		return SUCCESS;	
 	}
 	
 	// VERIFICA SE O USUÁRIO ESTÁ COM TEMPO VÁLIDO
@@ -89,5 +66,11 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 		boolean usuarioAutenticado = usuarioService.usuarioAutenticado(usuario);
 		return usuarioAutenticado ? SUCCESS : ERROR;
 	}
+	
+	public String usuariosSistema() throws SQLException, Exception {
+		usuariosList = usuarioService.buscarUsuarios();
+		return SUCCESS;
+	}
+	
 
 }
