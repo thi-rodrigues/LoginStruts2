@@ -18,6 +18,7 @@
 	<body>
 		<hr>
 			<h1>UPDATE</h1>
+			<s:text name="%{usuarioLogado.nome}" />
 		<hr>
 			<div>
 				<s:form action="updateUser" method="POST">

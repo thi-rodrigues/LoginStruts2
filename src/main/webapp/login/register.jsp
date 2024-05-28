@@ -25,11 +25,6 @@
 		                    <s:submit value="Login" class="btn-primary-login"/>
 		                </s:push>
 	            	</s:form>
-	            	<!-- 
-	            	<s:form action="saveUsuario" class="form-signin" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
-		            	<s:submit value="Cadastre-se" class="btn-primary-login"/>
-	            	</s:form>
-	            	 -->
             	</div>
             	
             	<div class="create-login">
@@ -43,10 +38,6 @@
 		                </s:push>
 		            </s:form>
             	</div>
-            	<!-- 
-            	<s:if test="newLogin == true">
-            	</s:if>
-            	 -->
             </div>
         </body>
 	</html>
