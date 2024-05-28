@@ -1,7 +1,9 @@
 package br.com.soc.action;
 
 import java.sql.SQLException;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -19,10 +21,17 @@ public class UsuarioAction extends ActionSupport implements ModelDriven<Usuario>
 	@Setter
 	private Usuario usuario = new Usuario();
 	
+	@Getter
+	@Setter
+	private Usuario usuarioLogado = new Usuario();
+	
 	private UsuarioService usuarioService = new UsuarioServiceImpl();
+	
+	Map<String, Object> session = ActionContext.getContext().getSession();
 
 	@Override
 	public Usuario getModel() {
+		usuarioLogado = (Usuario) session.get("usuarioLogado");
 		return usuario;
 	}
 	

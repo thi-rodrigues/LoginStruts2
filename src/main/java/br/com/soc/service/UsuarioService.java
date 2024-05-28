@@ -15,7 +15,7 @@ public interface UsuarioService {
 	
 	List<Usuario> buscarUsuarios() throws SQLException, Exception;
 
-	public void atualizarUsuario(Usuario usuario) throws SQLException, Exception;
+	public void atualizarUsuario(String nome, Long tempoInativividade, Long id) throws SQLException, Exception;
 
 	public Usuario buscarUsuarioPorId(Long id) throws SQLException, Exception;
 

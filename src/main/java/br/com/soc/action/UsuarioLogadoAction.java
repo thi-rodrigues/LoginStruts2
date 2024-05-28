@@ -2,6 +2,7 @@ package br.com.soc.action;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,13 +12,14 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import br.com.soc.domain.LoginRequired;
 import br.com.soc.domain.Usuario;
 import br.com.soc.service.UsuarioService;
 import br.com.soc.service.impl.UsuarioServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
 
-public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Usuario> {
+public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Usuario>, LoginRequired {
 
 	private static final long serialVersionUID = -6659925652584240539L;
 
@@ -31,67 +33,57 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 	
 	@Getter
 	@Setter
-	private Long idUsuarioLogado;
-	
-	@Getter
-	@Setter
 	private List<Usuario> usuariosList;
 	
 	private UsuarioService usuarioService = new UsuarioServiceImpl();
+	
+	Map<String, Object> session = ActionContext.getContext().getSession();
+	
+	HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
+			.get(ServletActionContext.HTTP_REQUEST);
 
 	@Override
 	public Usuario getModel() {
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
-				.get(ServletActionContext.HTTP_REQUEST);
-		if (request.getParameter("idUsuarioLogado") != null && !request.getParameter("idUsuarioLogado").equals(""))
-			idUsuarioLogado = Long.valueOf(request.getParameter("idUsuarioLogado"));
+		Usuario u = (Usuario) session.get("usuarioLogado");
+		
+		if (u != null)
+			usuarioLogado = (Usuario) session.get("usuarioLogado");
+		
 		return usuario;
 	}
 	
 	public String logar() throws SQLException, Exception {
-		usuarioLogado = usuarioService.buscarUsuario(usuario);
+		if (usuario.getNome() != null && !usuario.getNome().equals("")) {
+			usuarioLogado = usuarioService.buscarUsuario(usuario);
+			session.put("usuarioLogado", usuarioLogado);
+		}
+		
 		usuariosList = usuarioService.buscarUsuarios();
 		return SUCCESS;
 	}
 	
 	public String buscarUsuarioPorId() throws SQLException, Exception {
-		usuario = usuarioService.buscarUsuarioPorId(usuario.getId());
-		usuarioLogado = usuarioService.buscarUsuarioPorId(idUsuarioLogado);
-		return SUCCESS;
-	}
-	
-	public String buscarUsuarioLogadoId() throws SQLException, Exception {
-		usuarioLogado = usuarioService.buscarUsuarioPorId(idUsuarioLogado);
+		if (request.getParameter("id") != null && !request.getParameter("id").equals(""))
+			usuario = usuarioService.buscarUsuarioPorId(Long.valueOf(request.getParameter("id")));
 		return SUCCESS;
 	}
 	
 	public String atualizarUsuario() throws SQLException, Exception {
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
-				.get(ServletActionContext.HTTP_REQUEST);
-		if (request.getParameter("idUsuarioLogado") != null && !request.getParameter("idUsuarioLogado").equals(""))
-			idUsuarioLogado = Long.valueOf(request.getParameter("idUsuarioLogado"));
-		
-		usuarioService.atualizarUsuario(usuario);
+		if (request.getParameter("id") != null && !request.getParameter("id").equals(""))
+			usuarioService.atualizarUsuario(request.getParameter("nome"), 
+					Long.valueOf(request.getParameter("tempoInativividade")), Long.valueOf(request.getParameter("id")));
+			
 		return SUCCESS;
 	}
 	
 	public String deletarUsuario() throws SQLException, Exception {
-		usuarioService.deletarUsuario(usuario.getId());
+		if (request.getParameter("id") != null && !request.getParameter("id").equals(""))
+			usuarioService.deletarUsuario(Long.valueOf(request.getParameter("id")));
+		
 		return SUCCESS;	
 	}
 	
-	// VERIFICA SE O USUÁRIO ESTÁ COM TEMPO VÁLIDO
-	public String usuarioAutenticado() throws SQLException, Exception {
-		boolean usuarioAutenticado = usuarioService.usuarioAutenticado(usuario);
-		return usuarioAutenticado ? SUCCESS : ERROR;
-	}
-	
 	public String usuariosSistema() throws SQLException, Exception {
-		HttpServletRequest request = (HttpServletRequest) ActionContext.getContext()
-				.get(ServletActionContext.HTTP_REQUEST);
-		if (request.getParameter("idUsuarioLogado") != null && !request.getParameter("idUsuarioLogado").equals(""))
-			idUsuarioLogado = Long.valueOf(request.getParameter("idUsuarioLogado"));
-		
 		usuariosList = usuarioService.buscarUsuarios();
 		return SUCCESS;
 	}

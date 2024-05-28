@@ -64,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			sql.append("AND DS_SENHA = MD5('" + usuario.getSenha() + "') ");
 
 			PreparedStatement ps = getConnection().prepareStatement(sql.toString());
-			System.out.println("method buscarUsuario: " + sql.toString());
+			System.out.println("method UsuarioServiceImpl/buscarUsuario: " + sql.toString());
 			ps.setString(1, usuario.getNome());
 			ResultSet rs = ps.executeQuery();
 
@@ -183,16 +183,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	@Override
-	public void atualizarUsuario(Usuario usuario) throws SQLException, Exception {
+	public void atualizarUsuario(String nome, Long tempoInativividade, Long id) throws SQLException, Exception {
 		getConnection().setAutoCommit(false);
 		try {
 			String sql = "UPDATE USUARIO SET NM_LOGIN =?, QT_TEMPO_INATIVIDADE =?"
 					+ "		WHERE ID = ?";
 
 			PreparedStatement ps = getConnection().prepareStatement(sql);
-			ps.setString(1, usuario.getNome());
-			ps.setLong(2, usuario.getTempoInativividade());
-			ps.setLong(3, usuario.getId());
+			ps.setString(1, nome);
+			ps.setLong(2, tempoInativividade);
+			ps.setLong(3, id);
 			System.out.println("method atualizarUsuario: " + sql);
 			ps.executeUpdate();
 		} catch (Exception e) {

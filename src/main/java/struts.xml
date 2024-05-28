@@ -4,12 +4,27 @@
 
 <struts>
 	<package name="default" extends="hibernate-default">
-<!-- LOGIN -->
+	
+		<!-- INTERCEPTORS -->
+		<interceptors>
+		    <interceptor name="login" class="br.com.soc.domain.LoginInterceptor"/>
+		    <interceptor-stack name="myStack">
+		        <interceptor-ref name="login"/>
+		    </interceptor-stack>
+		</interceptors>
+		
+		<global-results>
+	    	<result name="loginRedirect" type="redirect">login</result>
+		</global-results>
+
+		<!-- LOGIN -->
 		<action name="login" method="welcome" class="br.com.soc.action.UsuarioAction">
+			<interceptor-ref name="login"/>
 			<result name="success">/login/register.jsp</result>
 		</action>
 		
 		<action name="saveUsuario" method="saveUsuario" class="br.com.soc.action.UsuarioAction">
+			<interceptor-ref name="login"/>
 			<result name="success" type="redirect">login</result>
 		</action>
 		
@@ -19,23 +34,28 @@
 		</action>
 		
 		<action name="usuarioLogado" method="usuariosSistema" class="br.com.soc.action.UsuarioLogadoAction">
+			<interceptor-ref name="login"/>
 			<result name="success">/login/usuarioLogado.jsp</result>
 		</action>
 		
 		<action name="autenticacao" method="usuarioAutenticado" class="br.com.soc.action.UsuarioLogadoAction">
+			<interceptor-ref name="login"/>
 			<result name="success">/login/usuarioLogado.jsp</result>
 			<result name="error">/login/register.jsp</result>
 		</action>
 		
 		<action name="buscarUsuario" method="buscarUsuarioPorId" class="br.com.soc.action.UsuarioLogadoAction">
+			<interceptor-ref name="login"/>
 			<result name="success">/login/update.jsp</result>
 		</action>
 		
 		<action name="updateUser" method="atualizarUsuario" class="br.com.soc.action.UsuarioLogadoAction">
+			<interceptor-ref name="login"/>
 			<result name="success" type="redirect">usuarioLogado</result>
 		</action>
 		
 		<action name="deleteUser" method="deletarUsuario" class="br.com.soc.action.UsuarioLogadoAction">
+			<interceptor-ref name="login"/>
 			<result name="success" type="redirect">usuarioLogado</result>
 		</action>
 		
