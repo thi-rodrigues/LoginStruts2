@@ -7,7 +7,7 @@
 	
 		<!-- INTERCEPTORS -->
 		<interceptors>
-		    <interceptor name="login" class="br.com.soc.domain.LoginInterceptor"/>
+		    <interceptor name="login" class="br.com.soc.config.LoginInterceptor"/>
 		    <interceptor-stack name="myStack">
 		        <interceptor-ref name="login"/>
 		    </interceptor-stack>

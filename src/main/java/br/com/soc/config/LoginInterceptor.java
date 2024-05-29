@@ -1,4 +1,4 @@
-package br.com.soc.domain;
+package br.com.soc.config;
 
 import java.util.Map;
 
@@ -7,6 +7,8 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 import br.com.soc.action.UsuarioLogadoAction;
+import br.com.soc.domain.LoginRequired;
+import br.com.soc.domain.Usuario;
 import br.com.soc.service.UsuarioService;
 import br.com.soc.service.impl.UsuarioServiceImpl;
 
