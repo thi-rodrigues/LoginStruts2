@@ -53,13 +53,16 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 	}
 	
 	public String logar() throws SQLException, Exception {
+		Usuario user = null;
 		if (usuario.getNome() != null && !usuario.getNome().equals("")) {
-			usuarioLogado = usuarioService.buscarUsuario(usuario);
-			session.put("usuarioLogado", usuarioLogado);
+			user  = usuarioService.buscarUsuario(usuario);
+			if (user.getId() != null) {
+				usuarioLogado = user;
+				session.put("usuarioLogado", usuarioLogado);
+				usuariosList = usuarioService.buscarUsuarios();
+			}
 		}
-		
-		usuariosList = usuarioService.buscarUsuarios();
-		return SUCCESS;
+		return user.getId() != null ? SUCCESS : ERROR;
 	}
 	
 	public String buscarUsuarioPorId() throws SQLException, Exception {
@@ -86,6 +89,11 @@ public class UsuarioLogadoAction extends ActionSupport implements ModelDriven<Us
 	public String usuariosSistema() throws SQLException, Exception {
 		usuariosList = usuarioService.buscarUsuarios();
 		return SUCCESS;
+	}
+	
+	public String logoutUsuario() throws SQLException, Exception {
+		session.remove(usuarioLogado);
+		return SUCCESS;	
 	}
 
 }

@@ -39,7 +39,7 @@
 }
 
 .userLogado {
-	background-color: black;
+	
 }
 
 .button-acao {
@@ -53,7 +53,8 @@ body {
 
 .login {
 	background-color: #eeeeee;
-	border-radius:10px
+	border-radius:10px;
+	max-width: 300px;
 }
 
 .create-login {
@@ -68,4 +69,9 @@ body {
     border-radius: 6px;
     color: white;
     border: 1px solid #cccccc;
+}
+
+.txDecorationNone {
+	text-decoration: none;
+	color: white;
 }

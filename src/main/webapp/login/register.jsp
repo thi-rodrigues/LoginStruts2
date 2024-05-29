@@ -11,32 +11,29 @@
             <sb:head />
         </head>
 
-        <body>
+        <body style="padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #f5f5f5;">
         	<script src="https://code.jquery.com/jquery.js"></script>
     		<script src="js/bootstrap.min.js"></script>
             
             <div class="container">
-            	<div class="login">
-					<s:form action="logarUsuario" class="form-signin" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
-		            	<h1>Login</h1>
+            	<div class="login" style="max-width: 300px;margin: 0 auto 20px;">
+					<s:form action="logarUsuario" class="form-signin form-horizontal" enctype="multipart/form-data" theme="bootstrap" >
+		            	<h1 style="text-align: center;">Login</h1>
 		                <s:push value="usuario">
-		                    <s:textfield name="nome" placeholder="Email" class="input-block-level" required="true"/>
-		                    <s:password name="senha" placeholder="Password" class="input-block-level" required="true"/>
-		                    <s:submit value="Login" class="btn-primary-login"/>
+				                    <s:textfield name="nome" placeholder="Email" class="input-block-level" required="true" />
+			                    	<s:password name="senha" placeholder="Password" class="input-block-level" required="true"/>
+		                <div style="text-align: center;">
+		                    <s:submit value="Entrar" class="btn-primary-login"/>
+		                </div>
 		                </s:push>
 	            	</s:form>
-            	</div>
-            	
-            	<div class="create-login">
-            		<s:form action="saveUsuario" enctype="multipart/form-data" theme="bootstrap" cssClass="form-horizontal">
-		            	<h1>Cadastrar Usuário</h1>
-		                <s:push value="usuario">
-		                    <s:textfield name="nome" label="Login" class="col-md-3" required="true"/>
-		                    <s:password name="senha" label="Senha" class="col-md-3" required="true"/>
-		                    <s:textfield type="number" name="tempoInativividade" label="Tempo de Inatividade" min="1" max="90" required="true"/>
-		                    <s:submit value="Gravar" class="btn btn-primary" />
-		                </s:push>
-		            </s:form>
+	            	<div style="padding: 10px 0;text-align: center;">
+	                 	<a href="cadastrar.action" class="txDecorationNone">
+							<button> Cadastre-se </button>
+						</a>
+	            	</div>
             	</div>
             </div>
         </body>

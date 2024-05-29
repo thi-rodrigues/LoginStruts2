@@ -14,18 +14,21 @@
 		</interceptors>
 		
 		<global-results>
-	    	<result name="loginRedirect" type="redirect">login</result>
+	    	<result name="loginRedirect" type="redirect">avaliacao</result>
 		</global-results>
 
 		<!-- LOGIN -->
-		<action name="login" method="welcome" class="br.com.soc.action.UsuarioAction">
+		<action name="avaliacao" method="welcome" class="br.com.soc.action.UsuarioAction">
 			<interceptor-ref name="login"/>
 			<result name="success">/login/register.jsp</result>
 		</action>
 		
+		<action name="cadastrar" method="welcome" class="br.com.soc.action.UsuarioAction">
+			<result name="success">/login/cadastrar.jsp</result>
+		</action>
+		
 		<action name="saveUsuario" method="saveUsuario" class="br.com.soc.action.UsuarioAction">
-			<interceptor-ref name="login"/>
-			<result name="success" type="redirect">login</result>
+			<result name="success" type="redirect">avaliacao</result>
 		</action>
 		
  		<action name="logarUsuario" method="logar" class="br.com.soc.action.UsuarioLogadoAction">
@@ -57,6 +60,10 @@
 		<action name="deleteUser" method="deletarUsuario" class="br.com.soc.action.UsuarioLogadoAction">
 			<interceptor-ref name="login"/>
 			<result name="success" type="redirect">usuarioLogado</result>
+		</action>
+		
+		<action name="logout" method="logoutUsuario" class="br.com.soc.action.UsuarioLogadoAction">
+			<result name="success" type="redirect">avaliacao</result>
 		</action>
 		
 	</package>

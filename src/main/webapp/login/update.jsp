@@ -43,6 +43,6 @@
 			<br>
 			<br>
 			<hr>
-		<i class="userLogado">Usuário logado: </i><s:text name="%{usuarioLogado.nome}" />
+		<b>Usuário logado: </b><s:text name="%{usuarioLogado.nome}" />
 	</body>
 </html>

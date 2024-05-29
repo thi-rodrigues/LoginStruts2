@@ -17,7 +17,7 @@
 
 	<body>
 		<hr>
-			<h1>Bem Vindo Sr. <s:text name="%{usuarioLogado.nome}" /></h1>
+			<h1>Bem Vindo Sr. <s:property value="%{usuarioLogado.nome}" /></h1>
 		<hr>
 			<h4>Usuários do Sistema</h4>
 			
@@ -57,6 +57,10 @@
 			<br>
 			<br>
 			<hr>
-		<i class="userLogado">Usuário logado: </i><s:text name="%{usuarioLogado.nome}" />
+		<b>Usuário logado: </b><s:text name="%{usuarioLogado.nome}" />
+		<br>
+		<a href="logout.action" class="txDecorationNone">
+			<button> Sair </button>
+		</a>
 	</body>
 </html>
